@@ -8,7 +8,19 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      <home-manager/nixos>
     ];
+    home-manager.users.d = {
+      home.stateVersion = "25.05"; # match your NixOS release
+      home.packages = with pkgs; [
+        fzf
+      ];
+      programs.bash.enable = true;
+      programs.fzf = {
+        enable = true;
+        enableBashIntegration = true;
+      };
+    };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

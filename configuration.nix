@@ -62,15 +62,51 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     neovim
-    spice-vdagent
     tmux
     git
+    bat
+    btop
+    gcc
+    clang-tools
+    cmake
+    curl
+    doxygen
+    fd
+    minicom
+    openocd
+    plantuml
+    ripgrep
+    tldr
+
+    yazi
+    p7zip
+    gzip
+    dysk
+
+    jq
+    yq
+    rsync
+    tree
+    unzip
+    graphviz
+
+    dfu-util
+    # stm32cubemx
+    lazygit
+    ninja
+
+    python312
+    pyenv
+    fzf
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -20,19 +20,18 @@
         enable = true;
         enableBashIntegration = true;
       };
-      # programs.kitty.enable = true;
-      # wayland.windowManager.hyprland.enable = true;
-  # Ensure Hyprland config is written
-  xdg.configFile."hypr/hyprland.conf".text = ''
-    monitor=,preferred,auto,auto
-    exec = waybar
-    exec = alacritty
-    input {
-      kb_layout = us
-    }
-    # wallpaper (needs hyprpaper installed)
-    exec-once = hyprpaper
-  '';
+
+  # # Ensure Hyprland config is written
+  # xdg.configFile."hypr/hyprland.conf".text = ''
+  #   monitor=,preferred,auto,auto
+  #   exec = waybar
+  #   exec = alacritty
+  #   input {
+  #     kb_layout = us
+  #   }
+  #   # wallpaper (needs hyprpaper installed)
+  #   exec-once = hyprpaper
+  # '';
     };
 
   # Bootloader.
@@ -145,13 +144,13 @@
 
     gh
     nix-tree
-
-    hyprland
     kitty
-    waybar
-    wl-clipboard
-    grim slurp
-    xdg-desktop-portal-hyprland
+
+    # hyprland
+    # waybar
+    # wl-clipboard
+    # grim slurp
+    # xdg-desktop-portal-hyprland
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -197,12 +196,17 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
 
-services.xserver.enable = true;
-services.dbus.enable = true;
-# services.logind.enable = true;
-services.greetd.enable = true;
-services.greetd.settings.default_session = {
-  command = "Hyprland";
-  user = "d";
-};
+# For hyprland
+# services.xserver.enable = true;
+# services.dbus.enable = true;
+# services.greetd.enable = true;
+# services.greetd.settings.default_session = {
+#   command = "Hyprland";
+#   user = "d";
+# };
+
+  services.xserver.enable = true; # optional
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.desktopManager.plasma6.enable = true;
 }

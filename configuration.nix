@@ -20,6 +20,19 @@
         enable = true;
         enableBashIntegration = true;
       };
+      # programs.kitty.enable = true;
+      # wayland.windowManager.hyprland.enable = true;
+  # Ensure Hyprland config is written
+  xdg.configFile."hypr/hyprland.conf".text = ''
+    monitor=,preferred,auto,auto
+    exec = waybar
+    exec = alacritty
+    input {
+      kb_layout = us
+    }
+    # wallpaper (needs hyprpaper installed)
+    exec-once = hyprpaper
+  '';
     };
 
   # Bootloader.
@@ -131,6 +144,14 @@
     fzf
 
     gh
+    nix-tree
+
+    hyprland
+    kitty
+    waybar
+    wl-clipboard
+    grim slurp
+    xdg-desktop-portal-hyprland
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -156,6 +177,11 @@
     };
   };
 
+  # programs.hyprland.enable = true;
+      programs.hyprland =  {
+        enable = true;
+	xwayland.enable = true;
+      };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -171,4 +197,12 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
 
+services.xserver.enable = true;
+services.dbus.enable = true;
+# services.logind.enable = true;
+services.greetd.enable = true;
+services.greetd.settings.default_session = {
+  command = "Hyprland";
+  user = "d";
+};
 }

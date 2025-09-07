@@ -93,6 +93,8 @@
   # Enable automatic login for the user.
   services.getty.autologinUser = "d";
 
+  services.fwupd.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 

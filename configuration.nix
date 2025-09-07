@@ -153,6 +153,10 @@
     # wl-clipboard
     # grim slurp
     # xdg-desktop-portal-hyprland
+
+    lm_sensors
+    stow
+    vivaldi
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

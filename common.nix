@@ -183,10 +183,10 @@
   };
 
   # programs.hyprland.enable = true;
-      programs.hyprland =  {
-        enable = true;
-	xwayland.enable = true;
-      };
+      # programs.hyprland =  {
+        # enable = true;
+	# xwayland.enable = true;
+      # };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -211,8 +211,4 @@
 #   user = "d";
 # };
 
-  services.xserver.enable = true; # optional
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
-  services.desktopManager.plasma6.enable = true;
 }

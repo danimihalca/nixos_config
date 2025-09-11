@@ -1,38 +1,39 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      <home-manager/nixos>
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    <home-manager/nixos>
+  ];
+  home-manager.users.d = {
+    home.stateVersion = "25.05"; # match your NixOS release
+    home.packages = with pkgs; [
+      fzf
     ];
-    home-manager.users.d = {
-      home.stateVersion = "25.05"; # match your NixOS release
-      home.packages = with pkgs; [
-        fzf
-      ];
-      programs.bash.enable = true;
-      programs.fzf = {
-        enable = true;
-        enableBashIntegration = true;
-      };
-
-  # # Ensure Hyprland config is written
-  # xdg.configFile."hypr/hyprland.conf".text = ''
-  #   monitor=,preferred,auto,auto
-  #   exec = waybar
-  #   exec = alacritty
-  #   input {
-  #     kb_layout = us
-  #   }
-  #   # wallpaper (needs hyprpaper installed)
-  #   exec-once = hyprpaper
-  # '';
+    programs.bash.enable = true;
+    programs.fzf = {
+      enable = true;
+      enableBashIntegration = true;
     };
+
+    # # Ensure Hyprland config is written
+    # xdg.configFile."hypr/hyprland.conf".text = ''
+    #   monitor=,preferred,auto,auto
+    #   exec = waybar
+    #   exec = alacritty
+    #   input {
+    #     kb_layout = us
+    #   }
+    #   # wallpaper (needs hyprpaper installed)
+    #   exec-once = hyprpaper
+    # '';
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = false;
@@ -86,7 +87,7 @@
   users.users.d = {
     isNormalUser = true;
     description = "d";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [];
   };
 
@@ -98,13 +99,12 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     neovim
     tmux
@@ -157,6 +157,9 @@
     lm_sensors
     stow
     vivaldi
+
+    alejandra
+    stylua
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -172,21 +175,21 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    ports = [ 22 ];
+    ports = [22];
     settings = {
-        PasswordAuthentication = true;
-        AllowUsers = [ "d" ];
-        UseDns = true;
-        X11Forwarding = false;
-        PermitRootLogin = "no";
+      PasswordAuthentication = true;
+      AllowUsers = ["d"];
+      UseDns = true;
+      X11Forwarding = false;
+      PermitRootLogin = "no";
     };
   };
 
   # programs.hyprland.enable = true;
-      # programs.hyprland =  {
-        # enable = true;
-	# xwayland.enable = true;
-      # };
+  # programs.hyprland =  {
+  # enable = true;
+  # xwayland.enable = true;
+  # };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -202,13 +205,12 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
 
-# For hyprland
-# services.xserver.enable = true;
-# services.dbus.enable = true;
-# services.greetd.enable = true;
-# services.greetd.settings.default_session = {
-#   command = "Hyprland";
-#   user = "d";
-# };
-
+  # For hyprland
+  # services.xserver.enable = true;
+  # services.dbus.enable = true;
+  # services.greetd.enable = true;
+  # services.greetd.settings.default_session = {
+  #   command = "Hyprland";
+  #   user = "d";
+  # };
 }
